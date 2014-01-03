@@ -1,13 +1,1 @@
-# dmbserver cookbook
-
-# Requirements
-
-# Usage
-
-# Attributes
-
-# Recipes
-
-# Author
-
-Author:: YOUR_NAME (<YOUR_EMAIL>)
+chef cookbook to install RVM/Ruby, NVM/node.js, golang, postgresql and etc, on Ubuntu server
