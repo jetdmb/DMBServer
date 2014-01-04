@@ -37,7 +37,7 @@ if node[:dmbserver][:enable_postgresql]
 end
 
 if node[:dmbserver][:enable_ruby]
-	if node[:dmbserver][:ruby][:install_tool] = "rvm"
+	if node[:dmbserver][:ruby][:install_tool] == "rvm"
 		include_recipe "dmbserver::rvm"
 	else
 		include_recipe "dmbserver::rbenv"	
