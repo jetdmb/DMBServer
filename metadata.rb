@@ -10,7 +10,7 @@ depends "apt"
 depends "build-essential"
 depends "runit", '>= 1.1.2'
 depends "appbox"
-depends "rvm"
+depends "rbenv"
 
 
 depends "postgresql"

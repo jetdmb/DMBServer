@@ -16,10 +16,6 @@ end
 
 include_recipe "dmbserver::apt"
 
-if node[:dmbserver][:enable_ruby]
-	include_recipe "dmbserver::ruby"
-end
-
 if node[:dmbserver][:enable_appbox]
 	include_recipe "appbox::default"
 end
@@ -38,4 +34,12 @@ end
 
 if node[:dmbserver][:enable_postgresql]
 	include_recipe "dmbserver::postgresql"
+end
+
+if node[:dmbserver][:enable_ruby]
+	if node[:dmbserver][:ruby][:install_tool] = "rvm"
+		include_recipe "dmbserver::rvm"
+	else
+		include_recipe "dmbserver::rbenv"	
+	end
 end

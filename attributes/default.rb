@@ -1,4 +1,4 @@
-default[:dmbserver][:enable_appbox] = true
+default[:dmbserver][:enable_appbox] = false
 default[:dmbserver][:enable_ruby] = true
 default[:dmbserver][:enable_nodejs] = true
 default[:dmbserver][:enable_postgresql] = true
@@ -11,8 +11,9 @@ default[:dmbserver][:vagrant] = true
 
 default[:dmbserver][:timezone] = "Asia/Shanghai"
 
+default[:dmbserver][:ruby][:install_tool] = "rvm"
 default[:dmbserver][:ruby][:versions] = %w(2.1.0)
-default[:dmbserver][:ruby][:default_version] = "2.1.0"
+default[:dmbserver][:ruby][:global_version] = "2.1.0"
 
 default[:dmbserver][:nodejs][:versions] = %w(v0.10.24)
 default[:dmbserver][:nodejs][:default_version] = "v0.10.24"
