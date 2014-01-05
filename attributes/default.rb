@@ -1,10 +1,13 @@
 default[:dmbserver][:enable_appbox] = false
-default[:dmbserver][:enable_ruby] = true
+
 default[:dmbserver][:enable_nodejs] = true
 default[:dmbserver][:enable_postgresql] = true
 default[:dmbserver][:enable_mysql] = true
 default[:dmbserver][:enable_golang] = true
+default[:dmbserver][:enable_ruby_tool] = true
 
+
+default[:dbmserver][:install_rubies] = false
 
 default[:dbmserver][:use_ubuntu_mirror] = true
 default[:dmbserver][:vagrant] = true
@@ -40,3 +43,7 @@ default[:dmbserver][:golang][:packages] = ["github.com/robfig/revel/revel"]
 default[:mysql][:server_root_password] = "123456"
 default[:mysql][:server_repl_password] = "123456"
 default[:mysql][:server_debian_password] = "123456"
+
+default[:rbenv][:root_path] = "/usr/local/rbenv"
+default[:rvm][:global_gems] = []
+default[:rvm][:user_global_gems] = []
