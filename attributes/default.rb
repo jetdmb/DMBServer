@@ -5,11 +5,12 @@ default[:dmbserver][:enable_postgresql] = true
 default[:dmbserver][:enable_mysql] = true
 default[:dmbserver][:enable_golang] = true
 default[:dmbserver][:enable_ruby_tool] = true
-
+default[:dmbserver][:enable_mongodb] = true
+default[:dbmserver][:use_ubuntu_mirror] = true
 
 default[:dbmserver][:install_rubies] = false
 
-default[:dbmserver][:use_ubuntu_mirror] = true
+
 default[:dmbserver][:vagrant] = true
 
 default[:dmbserver][:timezone] = "Asia/Shanghai"
@@ -47,3 +48,7 @@ default[:mysql][:server_debian_password] = "123456"
 default[:rbenv][:root_path] = "/usr/local/rbenv"
 default[:rvm][:global_gems] = []
 default[:rvm][:user_global_gems] = []
+
+
+default[:dmbserver][:mongodb][:dbpath] = "/var/lib/mongodb"
+default[:dmbserver][:mongodb][:logpath] = "/var/log/mongodb"

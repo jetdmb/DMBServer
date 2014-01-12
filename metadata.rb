@@ -14,10 +14,12 @@ depends "rvm"
 depends "rbenv"
 
 
-depends "postgresql"
+
 depends "nvm"
 
-depends "nodejs"
-depends "database"
+depends "mongodb"
 
+depends "nodejs"
+depends "mysql"
+depends "postgresql"
 depends "golang"

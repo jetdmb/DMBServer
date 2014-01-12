@@ -1,19 +1,6 @@
-  
-
-root_password = node["dmbserver"]["db_root_password"]
-if root_password
-  node.set["postgresql"]["password"]["postgres"] = root_password
-end
-
 pg_version = node[:dmbserver][:pg_version]
 if pg_version
-  node.set["postgresql"]["enable_pgdg_apt"] = true
   node.set["postgresql"]["version"] = pg_version
-  node.set["postgresql"]["server"]["packages"] = ["postgresql-#{pg_version}", "postgresql-server-dev-#{pg_version}"]
-  node.set["postgresql"]["client"]["packages"] = ["postgresql-client-#{pg_version}"]
-  node.set["postgresql"]["contrib"]["packages"] = ["postgresql-contrib-#{pg_version}"]
-  node.set['postgresql']['dir'] = "/etc/postgresql/#{pg_version}/main"
-  node.set['postgresql']['config']['data_directory'] = "/var/lib/postgresql/#{pg_version}/main"
 end
 
 node.set['postgresql']['pg_hba'] = [
@@ -24,36 +11,31 @@ node.set['postgresql']['pg_hba'] = [
   {:type => 'host', :db => 'all', :user => 'all', :addr => '0.0.0.0/0', :method => 'md5'}
 ]
 
+
+
 include_recipe "postgresql::server"
 
-include_recipe "database::postgresql"
 
-
-postgresql_connection_info = {
-  :host => "localhost",
-  :port => node['postgresql']['config']['port'],
-  :username => 'postgres',
-  :password => node['postgresql']['password']['postgres']
-}
+root_password = node["dmbserver"]["db_root_password"]
+if root_password
+  pg_user "postgres" do
+    privileges superuser: true, createdb: true, login: true
+    password root_password
+  end
+end
 
 node["dmbserver"]["databases"]["postgresql"].each do |entry|
 
-  postgresql_database entry["database_name"] do
-    connection postgresql_connection_info
-    template entry["template"] if entry["template"]
-    encoding entry["encoding"] if entry["encoding"]
-    collation entry["collation"] if entry["collation"]
-    connection_limit entry["connection_limit"] if entry["connection_limit"]
-    owner entry["owner"] if entry["owner"]
-    action :create
+  pg_user entry["username"] do
+    privileges superuser: false, createdb: true, login: true
+    password entry["password"]
   end
 
-  postgresql_database_user entry["username"] do
-    connection postgresql_connection_info
-    action [:create, :grant]
-    password(entry["password"])           if entry["password"]
-    database_name(entry["database_name"]) if entry["database_name"]
-    privileges(entry["privileges"])       if entry["privileges"]
+  pg_database entry["database_name"] do
+    owner entry["username"]
+    encoding( entry["encoding"] || "utf8" )
+    template(entry["template"] || "template0")
+    locale "en_US.UTF8"
   end
 
 end
